@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ profile_user.username }}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        
+        <!-- bootstrap js -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        <!-- chart.js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+        <link href="{% static 'booklist/profile.css' %}" rel="stylesheet">
+        <script src="{% static 'booklist/profile.js' %}"></script>
+    </head>
+
+    <!-- popup -->
+    <div id="popup_pfp">
+        <div id="inner_popup">
+            <button id="close">Close</button>
+            <form id="pfp_form">
+                <img id="edit_pfp_img" class="rounded-circle" src="{{ profile_user.pfp }}">
+                <input id="img_input" placeholder="Image url">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <!-- endpopup -->
+
+    <body>
+        <div id="edit_nav_bar_inv_bg">
+            <ul>
+                <li class="float_left" id="back_btn_play">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                    </svg>
+                </li>
+            </ul>
+        </div>
+
+        <div id="left-part">
+            <div class="gray_border">
+                <div class="center_grid_div">
+                    <img id="target_img" class="rounded-circle" src="{{ profile_user.pfp }}">
+                    {% if profile_user == request.user %}
+                    <span id="edit_pfp">Edit profile picture</span>
+                    {% endif %}
+                </div>
+                <p id="username">{{ profile_user.username }}</p>
+            </div>
+
+            <div id="friends_list" class="gray_border">
+                <p style="margin-left: 3vw; margin-top: 5vh; text-decoration: underline; font-weight: bold; text-align: left;">Friends:</p>
+                {% for friend in friends %}
+                    <div class="profiles_section">
+                        <div id="pfp_div">
+                            <img src="{{ friend.pfp }}" class="pfp_img rounded-circle">
+                        </div>
+                        <div id="username_div"><a href="/profile/{{ friend.username}}">{{ friend.username }}</a></div>
+                    </div>
+                {% empty %}
+                    <div id="empty_friend_div">
+                        No friends found.
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="gray_border" id="right-part">
+            <!-- bar graph section-->
+            <div id="bar_pie_div">
+                <input type="hidden" id="done_count" value="{{done_count}}">
+                <input type="hidden" id="to_read_count" value="{{to_read_count}}">
+                <input type="hidden" id="continue_count" value="{{continue_count}}">
+                <!-- carousel -->
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                    
+                        <div class="carousel-item active" class="carousel_page">
+                            <canvas id="barGraph" style="width:70vw !important; height: 50vh !important;"></canvas>
+                        </div>
+
+                        <div class="carousel-item">
+                            <canvas id="pieChart" style="width:70vw !important; height: 50vh !important;"></canvas>
+                        </div>
+
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <!-- /carousel -->
+            </div>
+            
+             <div id="fav_genre">
+                <p>Favourite genres:</p>
+                {% for genre in genres|slice:":3" %}
+                    <span class="badge {{ genre.color_class }}">{{ genre.genre }}</span>
+                {% empty %}
+                    <span> No favourite genres.</span>
+                {% endfor %}
+             </div>
+            
+            <p class="captions_for_scroll">Favorite books:</p>
+            <div class="favorites_section">
+                {% for fav_book in fav_books %}
+                <div class="card_divs_for_continue_reading_in_index">
+                    <a href="/book/{{ fav_book.id }}">
+                        <img class="img_for_continue_reading_in_index" src="{{ fav_book.image }}">
+                    </a>
+                    <div class="progress">
+                        <input type="hidden" value="{% widthratio fav_book.current_page fav_book.total_pages 100|safe %}">
+                        <div class="prog_bar_cont" class="progress-bar" role="progressbar" style="background-color: #28a745;" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="captions_for_continue_reading_cards_index">{{ fav_book.title }}</div>
+                </div>  	
+                {% empty %}
+                <p id="empty_msg_continue" class="padding_for_empty_messages">No books found. </p>
+                {% endfor %}
+            </div>
+
+            <!-- recently added section -->
+            <p class="captions_for_scroll">Recently added:</p>
+            <div class="favorites_section">
+                {% for ra_book in ra_books %}
+                <div class="card_divs_for_continue_reading_in_index">
+                    <a href="/book/{{ ra_book.id }}">
+                        <img class="img_for_continue_reading_in_index" src="{{ ra_book.image }}">
+                    </a>
+                    <div class="progress">
+                        <input type="hidden" value="{% widthratio ra_book.current_page ra_book.total_pages 100|safe %}">
+                        <div class="prog_bar_cont" class="progress-bar" role="progressbar" style="background-color: #28a745;" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="captions_for_continue_reading_cards_index">{{ ra_book.title }}</div>
+                </div>  	
+                {% empty %}
+                <p id="empty_msg_continue" class="padding_for_empty_messages">No books found. </p>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

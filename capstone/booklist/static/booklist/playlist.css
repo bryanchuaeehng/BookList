@@ -1,0 +1,143 @@
+@keyframes left_remove {
+    0% {
+        transform: translateX(0px);
+        height: fit-content;
+    }
+    50% {
+        transform: translateX(-100vw);
+        height: fit-content
+    }
+    100% {
+        transform: translateX(-100vw);
+        height: 0px;
+    }
+}
+
+main {
+    width: 100wv;
+}
+
+body {
+    color: white;
+    background-color: black;
+    overflow-x: hidden;
+}
+
+.subdiv_of_row {
+    display: inline-block;
+    height: fit-content;
+}
+
+img {
+    height: 19vh;
+}
+
+.each_playlist_row {
+    display: grid;
+    padding: 5px;
+    grid-template-columns: 20vw 30vw 40vw 10vw;
+    height: fit-content;
+    width: 100vw;
+    border: 2px solid transparent;
+    animation-name: left_remove;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-play-state: paused;
+}
+
+.each_playlist_row:hover {
+    border: 2px solid white;
+}
+
+#book_title>a {
+    font-weight: bold;
+    font-size: larger;
+    color: white;
+}
+
+#book_title:hover {
+    text-decoration: underline;
+}
+
+#book_img {
+    text-align: center;
+}
+
+.delete_btns > svg {
+    color: white;
+    width: 2vw;
+    height: 2vw;
+}
+
+#book_delete {
+    display: none;
+    height: 100%;
+    width: 100%;
+    place-items: center;
+    text-align: center;
+}
+
+.full_desc {
+    display: none;
+}
+
+.read_more_btns {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.read_more_btns:hover {
+    text-decoration: underline;
+}
+
+#bground_to_hide_top {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh;
+    width: 100vw;
+    border-radius: 4px;
+    position: sticky;
+    z-index: 2;
+    top: 0;
+}
+
+#div_for_backdrop_blur {
+    height: 50vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.6);
+    text-align: center;
+    display: grid;
+    place-items: center;
+    font-size: xx-large;
+    border: 2px solid black;
+    
+}
+
+#edit_nav_bar_inv_bg {
+    height: 24vh;
+    width: 100vw;
+    position: fixed;
+    background-color: transparent;
+    color: white;
+    z-index: 3;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+.float_right {
+    float: right;
+    display: inline;
+    margin-top: 2vh;
+    cursor: pointer;
+    margin-right: 3vw;
+}
+
+.float_left {
+    float: left;
+    display: inline;
+    margin-top: 2vh;
+    cursor: pointer;
+}

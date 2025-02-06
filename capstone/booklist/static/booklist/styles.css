@@ -1,0 +1,590 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+img {
+    border-radius: 4px;
+}
+
+#main_body_of_index_page {
+    margin: 10px;
+}
+/* box background for carousel */
+.recommended_books_list {
+    height: 24vh;
+    margin-bottom: 30px;
+}
+/* carousel inner*/
+.carousel-inner {
+    height: 24vh;
+}
+.carousel-item {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 24vh;
+    border-radius: 4px;
+}
+/* images in carousel */
+.recommended_books_list_img {
+    margin-top: 0.75vh;
+    margin-bottom: 0.75vh;
+    height: 22.5vh;
+    width: 15vh !important;
+    margin-left: 15%;
+    vertical-align: 0%;
+}
+/* carousel */
+#carouselExampleIndicators {
+    height: 24vh;
+}
+
+.carousel-indicators {
+    z-index: 1;
+}
+
+.div_beside_img_in_carousel {
+    display: inline-block;
+    margin-left: 5vw;
+    height: 22.5vh;
+    vertical-align: top;
+    margin-top: 0.75vh;
+    margin-bottom: 0.75vh;
+    width: 50vw;
+}
+
+/* outlines most of the horizontal scroll sections*/
+.continue_reading_books_list {
+    background-color: rgba(52, 58, 64, 0.4);
+    height: fit-content;
+    box-shadow: 0px 0px 2px 0px #000;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    overflow-x: scroll;
+    overflow-y: visible;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        height: 1vh;
+    }
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #343a40;
+        border-radius: 50px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #282c31;
+    }    
+}
+
+#rec_title {
+    height: 10%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+}
+
+#rec_desc {
+    height: 49%;
+    overflow-y: hidden;
+}
+
+.card_divs_for_continue_reading_in_index {
+    height: fit-content;
+    width: 12vh;  
+    display: inline-block; 
+}
+
+.img_for_continue_reading_in_index {
+    height: 15vh;
+    width: 10vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
+    margin-top: 1vh;
+}
+
+.progress {
+    width: 10vh;
+    height: 0.5vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
+    margin-bottom: 5px;
+    background-color: transparent;
+}
+
+.img_for_continue_reading_in_index:hover {
+    scale: 1.1;
+}
+
+.captions_for_continue_reading_cards_index {
+    font-size: small;
+    width: 12vh;
+    height: fit-content;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding-bottom: 1vh;
+    white-space: normal;
+}
+
+#add_book_btn {
+    width: 75%;
+    border-radius: 6px;
+    text-align: center;
+    margin-left: 12.5%;
+    color: white;
+    background-color: #28a745;
+    box-shadow: none;
+    border: none;
+}
+
+#add_book_btn:hover {
+    filter: brightness(70%);
+}
+
+/* is for the 2 per page bigger size books under 'to-read' */
+.to_read_books_list {
+    background-color: rgba(52, 58, 64, 0.4);
+    min-height: 100px;
+    box-shadow: 0px 0px 2px 0px black;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    white-space: normal;
+}
+
+.card_divs_for_to_read_in_index {
+    display: inline-block;
+    width: 49%;
+    height: fit-content;
+    text-align: center;
+    margin-top: 2vh;
+    margin-bottom: 4vh;
+}
+
+.img_for_to_read_in_index {
+    width: 15vw;
+    height: 22.5vw;
+}
+
+.img_for_to_read_in_index:hover {
+    scale: 1.05;
+}
+
+.captions_for_to_read_cards_index {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.div_for_genres_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 15vw;
+    margin: auto;
+}
+
+.badge {
+    margin-right: 0.5vw;
+    margin-bottom: 3px;
+}
+
+#centered_two_btn {
+    height: fit-content;
+    width: calc(100% - 20px);
+    display: grid;
+    text-align: center;
+    place-items: center;
+    margin-top: 3vh;
+}
+
+.to_read_more_btn {
+    color: white;
+    background-color: #28a745;
+    border-top: 2px;
+    border-bottom: 2px;
+    border-left: 3px;
+    border-right: 3px;
+    border-radius: 4px;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    width: 10vw;
+    min-width: fit-content;
+    margin-bottom: 3vh;
+}
+
+.to_read_more_btn:hover {
+    filter: brightness(70%);
+}
+
+/* is for the playlists which use centered pics and name */
+.playlist_on_index_page {
+    background-color: rgba(52, 58, 64, 0.4);
+    height: 15vh;
+    box-shadow: 0px 0px 2px 0px black;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        height: 1vh;
+    }
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #343a40;
+        border-radius: 50px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #282c31;
+    }
+}
+
+#search_bar_at_index_top:focus {
+    border-color: white;
+    -webkit-box-shadow: none;
+    box-shadow: 0px 0px 4px 0px white;
+}
+
+/* this is where search results and 'showing results for' appears */
+#search_results_index {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    width: 50%;
+    background-color: #343a40;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0px 0px 6px 0px white;
+    margin-top: 2px;
+    max-height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #28a745;
+        border-radius: 50px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #18642a;
+    }
+}
+
+.header_titles_for_categories {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+}
+
+#popup_add_book {
+    display: none;
+    text-align: center;
+    position: fixed;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: brightness(30%);
+}
+
+#div_add_book_form {
+    z-index: 2;
+    width: 50vw;
+    height: fit-content;
+    max-height: 80vh;
+    margin: auto;
+    margin-top: 10vh;
+    background-color: rgb(33, 32, 32);
+    padding: 20px;
+    border-radius: 12px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        width: 1vw;
+    }
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: white;
+        border-radius: 50px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: lightgray;
+    }
+}
+
+#add_book_form > input {
+    background: transparent;
+    border: none;
+    height: 4.6vh;
+    color: white !important;
+    border: 1px solid transparent;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    margin-bottom: 1px;
+}
+
+#add_book_form > button:hover {
+    filter: brightness(70%);
+}
+
+#ab_actual_img {
+    height: 22.5vh;
+    width: 15vh;
+}
+
+#ab_actual_img:hover {
+    scale: 1;
+}
+
+#ab_description {
+    field-sizing: content;
+    overflow-x: hidden;
+    width: 50%;
+    height: fit-content;
+    min-height: 12vh;
+    resize: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#genres_add_book {
+    width: 50%;
+    margin: auto;
+}
+
+.genre_btn_add_book {
+    filter: brightness(50%);
+}
+
+.genre_btn_add_book:hover {
+    cursor: pointer;
+}
+
+#create_playlist_popup_in_index {
+    height: 13vh;
+    width: 13vh;
+    text-align: center;
+    display: inline-block;
+}
+
+#create_playlist_popup_in_index > svg {
+    height: 7vh;
+    width: 7vh;
+    margin-top: 3vh;
+}
+
+/* this is the actual form with input and button to create playlist */
+#popup_form_create_playlist_index {
+    display: none;
+    place-items: center;
+    text-align: center;
+    position: fixed;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: brightness(30%);
+}
+
+#create_new_playlist_form_index > input {
+    background: transparent;
+    border: none;
+    height: 4.6vh;
+    color: white !important;
+    border: 1px solid transparent;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    margin-bottom: 1px;
+}
+
+#btn_close_add_book {
+    color: white;
+    padding: 0px;
+    padding-left: 6px; 
+    padding-right: 6px; 
+    background-color: gray; 
+    border-radius: 20px; 
+    outline: none; 
+    border: none;
+    font-size: 16px;
+}
+
+#btn_submit_add_book {
+    color: white; 
+    padding: 0px; 
+    padding-left: 6px; 
+    padding-right: 6px; 
+    background-color: #28a745; 
+    border-radius: 20px; 
+    outline: none; 
+    border: none;
+    font-size: 16px;
+}
+
+#div_backdrop_index {
+    background-color: rgb(33, 32, 32);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 3px 0px black;
+}
+
+
+#popup_form_create_playlist_index > div > form > input, button {
+    margin-top: 5px;
+}
+
+#popup_form_create_playlist_index > div > form > button {
+    float: right;
+    margin-left: 5px;
+}
+
+#popup_form_create_playlist_index > div > form > button:hover {
+    filter: brightness(70%);
+}
+
+#close_popup_form_for_create_playlist {
+    color: white;
+    padding: 0px;
+    padding-left: 6px; 
+    padding-right: 6px; 
+    background-color: gray; 
+    border-radius: 20px; 
+    outline: none; 
+    border: none;
+    font-size: 16px;
+}
+
+#submit_popup_form_for_create_playlist {
+    color: white; 
+    padding: 0px; 
+    padding-left: 6px; 
+    padding-right: 6px; 
+    background-color: #28a745; 
+    border-radius: 20px; 
+    outline: none; 
+    border: none;
+    font-size: 16px;
+}
+
+.card_divs_for_playlist_in_index {
+    height: 13vh;
+    width: 13vh;  
+    display: inline-block; 
+}
+
+.img_for_playlist_in_index {
+    height: 7vh;
+    width: 7vh;
+    margin-left: 3vh;
+    margin-right: 3vh;
+    margin-top: 3vh;
+}
+
+.captions_for_playlist_cards_index {
+    font-size: small;
+    width: 13vh;
+    height: 3vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+/* for each carousel page that briefly lingers */
+.carousel_page {
+    display: inline;
+}
+
+.div_for_backdrop_blur {
+    backdrop-filter: blur(8px);
+    background-color: rgba(0,0,0,0.7);
+}
+
+.padding_for_empty_messages {
+    padding: 5px;
+}
+
+img:hover {
+    scale: 1.1;
+}
+
+#create_playlist_popup_in_index:hover {
+    cursor: pointer;
+}
+
+.search_results_img {
+    height: 15vh;
+    width: 10vh;
+    max-width: 100%;
+}
+
+.search_result_div {
+    height: 15vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    display: grid;
+    grid-template-columns: 30% calc(70% - 12px);
+    text-align: initial;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border: 1px solid transparent;
+}
+
+.search_result_div:hover {
+    border: 1px solid white;
+}
+
+.results_title {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    overflow-wrap: break-word;
+    height: 3vh;
+    width: calc(35vw - 12px);
+}
+
+.results_description {
+    font-size: 13px;
+    height: 12vh;
+    width: calc(35vw - 12px);
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.results_title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+.div_containing_search_result_img {
+    text-align: center;
+    width: inherit;
+}

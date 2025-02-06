@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'booklist/login.css' %}" rel="stylesheet">
+    </head>
+
+    <body class="img js-fullheight" style="background-image: url(https://wallpaperaccess.com/full/1977640.jpg); height: 100vh;">
+        <div id="section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center mb-5">
+                        <h2 class="heading-section"><span style="color: #28a745;">B</span>ooklist</h2>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="login-wrap p-0">
+                            <h3 class="mb-4 text-center">Have an account?</h3>
+                            <form action="{% url 'login' %}" method="post" class="signin-form" id="login_form">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input id="username" name="username" type="text" class="form-control" placeholder="Username" required="" value="{{ username }}">
+                                </div>
+                                <div class="form-group">
+                                    <input id="password-field" name="password" type="password" class="form-control" placeholder="Password" required="" value="{{ password }}">
+                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                                <p id="error_msg" style="color: red;">{{ error }}</p>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                                </div>
+                                <div class="form-group d-md-flex">
+                                    <div class="w-100 text-center">
+                                        <a href="{% url 'register' %}" style="color: #fff">New to Booklist? Register</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </body>
+</html>

@@ -1,0 +1,369 @@
+{% extends "booklist/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <!-- popup add book -->
+    <div id="popup_add_book">
+        <div id="div_add_book_form">
+            <form id="add_book_form">
+                {% csrf_token %}
+                <button id="btn_close_add_book" type="button">Close</button>
+                <br>
+                <b style="font-size: larger; text-decoration: underline; color: limegreen;">Add Book</b>
+                <br>
+                <input id="ab_title" placeholder="Title">
+                <br>
+                <img id="ab_actual_img" src="https://thumbs.dreamstime.com/b/vintage-paper-texture-decorative-border-frame-old-paper-decorative-border-112688209.jpg">
+                <br>
+                <input id="ab_img" placeholder="Image">
+                <br>
+                <input id="ab_url" placeholder="Url">
+                <br>
+                <input id="ab_rating" placeholder="Rating">
+                <br>
+                <textarea id="ab_description" placeholder="Description"></textarea>
+                <br>
+                <div id="genres_add_book">
+                    {% for genre in genres %}
+                        <span class="badge {{ genre.color_class }} genre_btn_add_book">{{ genre.genre }}</span>
+                    {% endfor %}
+                </div>
+                <br>
+                <input id="ab_curr_page" placeholder="Current page">/<input id="ab_tot_page" placeholder="Total pages">
+                <br>
+                <div id="ab_error"></div>
+                <button id="btn_submit_add_book" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <!-- end popup add book-->
+
+    <!-- pop up that will appear to create playlist -->
+    <div id="popup_form_create_playlist_index">
+        <div id="div_backdrop_index">
+            <p><b>Create <span style="color: #28a745;">new</span> playlist</b></p>
+            <form id="create_new_playlist_form_index">
+                <input id="name_of_new_playlist" name="name_of_new_playlist" autofocus placeholder="Title">
+                <br>
+                <input id="img_of_new_playlist" name="img_of_new_playlist" placeholder="Image (optional)">
+                <br>
+                <button id="submit_popup_form_for_create_playlist" type="submit">Create</button>
+                <button id="close_popup_form_for_create_playlist" type="button">Close</button>
+            </form>
+        </div>
+    </div>
+    <!---->
+
+    <!-- navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+            
+        <div>
+            <ul class="navbar-nav mr-auto">
+                <li>
+                    <a class="navbar-brand" href="{% url 'index' %}"><span style="color: #28a745;">B</span>ooklist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/friends">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color: #28a745;" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                        </svg>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/profile/{{ user.username }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color: #28a745;" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
+                            <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#playlist_on_index_page">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="color: #28a745;" width="16" height="16" fill="currentColor" class="bi bi-collection-play-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zm6.258-6.437a.5.5 0 0 1 .507.013l4 2.5a.5.5 0 0 1 0 .848l-4 2.5A.5.5 0 0 1 6 12V7a.5.5 0 0 1 .258-.437"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <ul class="navbar-nav mr-auto">
+                <li>
+                    <form id="search_form" class="form-inline">
+                        <input type="hidden" value="{{ user.id }}" id="id_of_user">
+                        <input class="form-control mr-sm-2" id="search_bar_at_index_top" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+                <li class="nav-item" style="margin-left: 5wv;">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- endnav-->
+
+    <div id="search_results_index">
+        <div id="search_results_index_title" style="font-size: 18px;">
+            Search results will appear here
+        </div>
+       
+        <br>
+        <div id="actual_search_result_index">
+            
+        </div>
+    </div>
+
+    <div id="main_body_of_index_page">
+
+        <span style="font-size: larger; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Recommended:</span>
+        <div class="recommended_books_list">
+
+            <!-- carousel -->
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">                                            
+                <!-- recommended books -->
+                    {% with continue_books|random as bk %}
+                    {% if bk %}
+                    <div class="carousel-item active" class="carousel_page">
+                        <div class="div_for_backdrop_blur">
+                            <a href="/book/{{ bk.id }}"><img class="recommended_books_list_img" src="{{ bk.image }}" alt=""></a>
+                            <div class="div_beside_img_in_carousel">
+                                <div id="rec_title"><b>{{ bk.title }}</b></div>
+                                {% for genre in bk.genres.all %}
+                                    <span class="badge {{ genre.color_class }}">{{ genre.genre }}</span>
+                                {% endfor %}
+                                <br>
+                                <div id="rec_rating">{{ bk.rating }}</div>                            
+                                <div id="rec_desc">{{ bk.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="carousel-item active" class="carousel_page" style="background-image: url(https://th.bing.com/th/id/OIP.Hh8NCzmgW4BnzNNDKe_wvgAAAA?rs=1&pid=ImgDetMain);">
+                        <div class="div_for_backdrop_blur">
+                            <img class="recommended_books_list_img" src="https://th.bing.com/th/id/OIP.Hh8NCzmgW4BnzNNDKe_wvgAAAA?rs=1&pid=ImgDetMain" alt="">
+                            <div class="div_beside_img_in_carousel">
+                                <b>?</b>
+                                <br>
+                                <span class="badge badge-danger">?</span>
+                                <span class="badge badge-warning">?</span>
+                                <br>
+                                ???
+                                <br>
+                                ?
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% with to_read_books|random as bk %}
+                    {% if bk %}
+                    <div class="carousel-item" class="carousel_page">
+                        <div class="div_for_backdrop_blur">
+                            <a href="/book/{{ bk.id }}"><img class="recommended_books_list_img" src="{{ bk.image }}" alt=""></a>
+                            <div class="div_beside_img_in_carousel">
+                                <div id="rec_title"><b>{{ bk.title }}</b></div>
+                                {% for genre in bk.genres.all %}
+                                    <span class="badge {{ genre.color_class }}">{{ genre.genre }}</span>
+                                {% endfor %}
+                                <br>
+                                <div id="rec_rating">{{ bk.rating }}</div>
+                                <div id="rec_desc">{{ bk.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="carousel-item" class="carousel_page" style="background-image: url(https://th.bing.com/th/id/OIP.Hh8NCzmgW4BnzNNDKe_wvgAAAA?rs=1&pid=ImgDetMain);">
+                        <div class="div_for_backdrop_blur">
+                            <img class="recommended_books_list_img" src="https://th.bing.com/th/id/OIP.Hh8NCzmgW4BnzNNDKe_wvgAAAA?rs=1&pid=ImgDetMain" alt="">
+                            <div class="div_beside_img_in_carousel">
+                                <b>?</b>
+                                <br>
+                                <span class="badge badge-danger">?</span>
+                                <span class="badge badge-warning">?</span>
+                                <br>
+                                ???
+                                <br>
+                                ?
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% with done_books|random as bk %}
+                    {% if bk %}
+                    <div class="carousel-item" class="carousel_page">
+                        <div class="div_for_backdrop_blur">
+                            <a href="/book/{{ bk.id }}"><img class="recommended_books_list_img" src="{{ bk.image }}" alt=""></a>
+                            <div class="div_beside_img_in_carousel">
+                                <div id="rec_title"><b>{{ bk.title }}</b></div>
+                                {% for genre in bk.genres.all %}
+                                    <span class="badge {{ genre.color_class }}">{{ genre.genre }}</span>
+                                {% endfor %}
+                                <br>
+                                <div id="rec_rating">{{ bk.rating }}</div>
+                                <div id="rec_desc">{{ bk.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="carousel-item" class="carousel_page" style="background-image: url(https://th.bing.com/th/id/OIP.Hh8NCzmgW4BnzNNDKe_wvgAAAA?rs=1&pid=ImgDetMain);">
+                        <div class="div_for_backdrop_blur">
+                            <img class="recommended_books_list_img" src="https://th.bing.com/th/id/OIP.Hh8NCzmgW4BnzNNDKe_wvgAAAA?rs=1&pid=ImgDetMain" alt="">
+                            <div class="div_beside_img_in_carousel">
+                                <b>?</b>
+                                <br>
+                                <span class="badge badge-danger">?</span>
+                                <span class="badge badge-warning">?</span>
+                                <br>
+                                ???
+                                <br>
+                                ?
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                <!-- end recoomended books -->
+
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <!-- /carousel -->
+
+        </div>
+
+        <span class="header_titles_for_categories">Continue reading:</span>
+        <div id="continue_reading_main_div" class="continue_reading_books_list">
+
+            {% for continue_book in continue_books %}
+            <div class="card_divs_for_continue_reading_in_index">
+                <a href="book/{{ continue_book.id }}">
+                    <img class="img_for_continue_reading_in_index" src="{{ continue_book.image }}">
+                </a>
+                <div class="progress">
+                    <input type="hidden" value="{% widthratio continue_book.current_page continue_book.total_pages 100|safe %}">
+                    <div class="prog_bar_cont" class="progress-bar" role="progressbar" style="background-color: #28a745;" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="captions_for_continue_reading_cards_index">{{ continue_book.title }}</div>
+            </div>  	
+            {% empty %}
+            <p id="empty_msg_continue" class="padding_for_empty_messages">No books found. </p>
+            {% endfor %}
+
+        </div>
+
+        <div><button id="add_book_btn"><b>Add Book</b></button></div>
+
+        <span class="header_titles_for_categories">To read:</span>
+        <div class="to_read_books_list">
+            <div id="actual_books_to_read">
+            {% for to_read_book in to_read_books %}
+                <div class="card_divs_for_to_read_in_index">
+                    <a href="book/{{ to_read_book.id }}">
+                        <img class="img_for_to_read_in_index" src="{{ to_read_book.image }}">
+                    </a>
+                    <br>
+                    <div class="captions_for_to_read_cards_index">{{ to_read_book.title }}</div>
+                    <div class="div_for_genres_wrap">
+                        {% for genre in to_read_book.genres.all %}
+                            <span class="badge {{ genre.color_class }}">{{ genre.genre }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% empty %}
+                <p id="empty_msg_to_read" class="padding_for_empty_messages">No books found. </p>
+            {% endfor %}
+            </div>
+            <div id="centered_two_btn">
+                <div>
+                    <button class="to_read_more_btn" id="show_more">Show more</button>
+                    <button class="to_read_more_btn" id="show_all">Show all</button>
+                </div>
+            </div>
+        </div>
+
+        <span class="header_titles_for_categories">My favorites:</span>
+        <div class="continue_reading_books_list">
+
+            {% for favorite in favorites %}
+            <div class="card_divs_for_continue_reading_in_index">
+                <a href="book/{{ favorite.id }}">
+                    <img class="img_for_continue_reading_in_index" src="{{ favorite.image }}">
+                </a>
+                <div class="progress">
+                    <input type="hidden" value="{% widthratio favorite.current_page favorite.total_pages 100|safe %}">
+                    <div class="prog_bar_cont" class="progress-bar" role="progressbar" style="background-color: #28a745;" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="captions_for_continue_reading_cards_index">{{ favorite.title }}</div>
+            </div>  	
+            {% empty %}
+            <p id="empty_msg_continue" class="padding_for_empty_messages">No books found. </p>
+            {% endfor %}
+            
+        </div>
+
+        <span class="header_titles_for_categories">Read again:</span>
+        <div id="done_reading_main_div" class="continue_reading_books_list">
+
+            {% for done_book in done_books %}
+            <div class="card_divs_for_continue_reading_in_index">
+                <a href="book/{{ done_book.id }}">
+                    <img class="img_for_continue_reading_in_index" src="{{ done_book.image }}">
+                </a>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="background-color: #28a745; width: 100%;" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="captions_for_continue_reading_cards_index">{{ done_book.title }}</div>
+            </div>
+            {% empty %}
+            <p id="empty_msg_done" class="padding_for_empty_messages">No books found.</p>
+            {% endfor %}
+
+        </div>
+
+        <span class="header_titles_for_categories">My playlists:</span>
+        <div class="playlist_on_index_page" id="playlist_on_index_page">
+            <div id="create_playlist_popup_in_index">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+                <br>
+                <div class="captions_for_playlist_cards_index">New playlist</div>
+            </div>
+
+            {% for user_playlist in user_playlists %}
+                <div class="card_divs_for_playlist_in_index">
+                    <a href="playlist/{{ user_playlist.id }}">
+                        <img class="img_for_playlist_in_index" src="{{ user_playlist.cover_img }}">
+                    </a>
+                    <br>
+                    <div class="captions_for_playlist_cards_index">{{ user_playlist.name }}</div>
+                </div>
+            {% endfor %}
+            
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'booklist/index.js' %}"></script>
+{% endblock %}
